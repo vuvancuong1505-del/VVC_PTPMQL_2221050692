@@ -1,0 +1,15 @@
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\bin\Debug\net10.0\NewProject.exe
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\bin\Debug\net10.0\NewProject.deps.json
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\bin\Debug\net10.0\NewProject.runtimeconfig.json
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\bin\Debug\net10.0\NewProject.dll
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\bin\Debug\net10.0\NewProject.pdb
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.GeneratedMSBuildEditorConfig.editorconfig
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.AssemblyInfoInputs.cache
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.AssemblyInfo.cs
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.csproj.CoreCompileInputs.cache
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.sourcelink.json
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.dll
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\refint\NewProject.dll
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.pdb
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\NewProject.genruntimeconfig.cache
+D:\VVC_PTPMQL\VVC_PTPMQL_2221050692\NewProject\obj\Debug\net10.0\ref\NewProject.dll

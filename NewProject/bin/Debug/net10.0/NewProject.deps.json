@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v10.0": {
-      "NewPoject/1.0.0": {
+      "NewProject/1.0.0": {
         "runtime": {
-          "NewPoject.dll": {}
+          "NewProject.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "NewPoject/1.0.0": {
+    "NewProject/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
