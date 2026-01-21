@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using NewProject.Controllers;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        DemoController demo = new DemoController();
+        demo.Index();
+    }
+}
