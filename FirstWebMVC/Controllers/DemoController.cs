@@ -1,19 +1,18 @@
-using DemoMVC.Models;
-using DemoMVC.Views.Demo;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DemoMVC.Controllers
 {
-    class DemoController
+    public class DemoController : Controller
     {
-        public void Index()
+        public IActionResult Index()
         {
-            Student sv = new Student
-            {
-                FullName = "Vũ Văn Cường",
-                StudentId = "2221050692"
-            };
-
-            Index.Render(sv);
+            //su dung viewbag de gui du lieu tu controller ve view
+            ViewBag.FullName = "Welcome to Demo MVC!";
+            return View();
+        }
+        public IActionResult Demo()
+        {
+            return View();
         }
     }
 }

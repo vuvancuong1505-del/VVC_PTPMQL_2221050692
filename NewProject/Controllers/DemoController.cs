@@ -1,5 +1,4 @@
 using NewProject.Models;
-using NewProject.Views.Demo;
 
 namespace NewProject.Controllers
 {
