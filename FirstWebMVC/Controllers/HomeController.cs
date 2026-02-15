@@ -1,19 +1,13 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using DemoMVC.Models;
+using FirstWebMVC.Models;
 
-namespace DemoMVC.Controllers;
+namespace FirstWebMVC.Controllers;
 
 public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        return View();
-    }
-    [HttpPost]
-    public IActionResult Index(string FullName, string StudentCode)
-    {
-        ViewBag.ThongBao = "Xin chào: " + FullName + " - Mã sinh viên: " + StudentCode;
         return View();
     }
 
