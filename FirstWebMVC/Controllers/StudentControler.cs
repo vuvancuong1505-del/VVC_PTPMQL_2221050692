@@ -10,10 +10,31 @@ namespace FirstWebMVC.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(Student std)
+        public IActionResult Index(string StudentCode, string FullName)
         {
-            ViewBag.ThongBao = "Xin chào: " + std.FullName + " - Mã sinh viên: " + std.StudentCode;
-            return View();
+            ViewBag.StudentCode = StudentCode;
+            ViewBag.FullName = FullName;
+
+            if(string.IsNullOrWhiteSpace(StudentCode) && string.IsNullOrWhiteSpace(FullName)){
+                ViewBag.Message = "Vui lòng nhập thông tin của bạn";
+                ViewBag.Error = true;
+                return View();
+            }
+            else if (string.IsNullOrWhiteSpace(StudentCode)){
+                ViewBag.Message = "Vui lòng nhập mã sinh viên của bạn";
+                ViewBag.Error = true;
+                return View();
+            }
+            else if (string.IsNullOrWhiteSpace(FullName)){
+                ViewBag.Message = "Vui lòng nhập họ và tên của bạn";
+                ViewBag.Error = true;
+                return View();
+            }
+            else{
+                ViewBag.Message = "Xin chào: " + FullName + " - Mã sinh viên: " + StudentCode;
+                ViewBag.Error = false;
+                return View();
+            }
         }
     }
 }
