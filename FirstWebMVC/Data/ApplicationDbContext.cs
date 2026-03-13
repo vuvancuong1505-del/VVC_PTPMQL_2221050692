@@ -10,7 +10,7 @@ namespace FirstWebMVC.Data
             : base(options)
         {}
 
-        public DbSet<Person> Person {get; set;}
+        public DbSet<Person> Persons {get; set;}
 
         public DbSet<Student> Students { get; set; }
     }

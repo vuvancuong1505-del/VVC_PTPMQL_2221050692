@@ -1,4 +1,26 @@
-@section Styles{
+@model IEnumerable<FirstWebMVC.Models.Student.Student>
+<h2>Danh sach Sinh vien</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Ma SV</th>
+        <th>Ho Ten SV</th>
+        <th>Actions</th>
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StudentCode</td>
+            <td>@item.FullName</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StudentCode" class="btn btn-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.StudentCode" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@* @section Styles{
     <link rel="stylesheet" href="~/css/student.css  "/>
 }
 
@@ -23,7 +45,7 @@ else{
             <button type="submit" class="btn btn-secondary">Gửi dữ liệu</button> <br />
         </div>
     </div>
-</form>
+</form> *@
 
 
 

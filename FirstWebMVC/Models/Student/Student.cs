@@ -7,9 +7,15 @@ namespace FirstWebMVC.Models.Student
     public class Student
     {   
         [Key]
-        public int StudentID {get; set;}
-        public string StudentCode {get; set; }  // Student: là thuộc tính
-        public string FullName {get; set; }     // FullName: là thuộc tính
+        public string StudentCode { get; set; } = default!;
+        public string FullName { get; set; } = default!;
+        
+        
+        // [Key]
+        // public int StudentID {get; set;}
+        // [Required]
+        // public string StudentCode {get; set; }  // Student: là thuộc tính
+        // public string FullName {get; set; }     // FullName: là thuộc tính
     }
 }
 
