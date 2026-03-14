@@ -26,9 +26,13 @@ namespace FirstWebMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Student std)
         {
-            _context.Students.Add(std);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _context.Students.Add(std);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(std);
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -51,41 +55,3 @@ namespace FirstWebMVC.Controllers
 
 
 
-// namespace FirstWebMVC.Controllers
-// {
-//     public class StudentController : Controller
-//     {
-//         [HttpGet]
-//         public IActionResult Index()
-//         {
-//             return View();
-//         }
-//         [HttpPost]
-//         public IActionResult Index(string StudentCode, string FullName)
-//         {
-//             ViewBag.StudentCode = StudentCode;
-//             ViewBag.FullName = FullName;
-
-//             if(string.IsNullOrWhiteSpace(StudentCode) && string.IsNullOrWhiteSpace(FullName)){
-//                 ViewBag.Message = "Vui lòng nhập thông tin của bạn";
-//                 ViewBag.Error = true;
-//                 return View();
-//             }
-//             else if (string.IsNullOrWhiteSpace(StudentCode)){
-//                 ViewBag.Message = "Vui lòng nhập mã sinh viên của bạn";
-//                 ViewBag.Error = true;
-//                 return View();
-//             }
-//             else if (string.IsNullOrWhiteSpace(FullName)){
-//                 ViewBag.Message = "Vui lòng nhập họ và tên của bạn";
-//                 ViewBag.Error = true;
-//                 return View();
-//             }
-//             else{
-//                 ViewBag.Message = "Xin chào: " + FullName + " - Mã sinh viên: " + StudentCode;
-//                 ViewBag.Error = false;
-//                 return View();
-//             }
-//         }
-//     }
-// }
