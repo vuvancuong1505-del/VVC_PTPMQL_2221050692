@@ -1,13 +1,17 @@
 @model FirstWebMVC.Models.Student.Student;
-<h2>Create new Student</h2>
+<h2>Create a new student</h2>
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label for="StudentCode">Ma SV</label>
-        <input type="text" asp-for="StudentCode" class="form-control" name="StudentCode" />
+        <label for="StudentCode" class="fw-bold">Mã sinh viên</label>
+        <input type="text" asp-for="StudentCode" class="form-control w-25"/>
+        <span asp-validation-for="StudentCode" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label for="FullName">Ho Ten SV</label>
-        <input type="text" asp-for="FullName" class="form-control" name="FullName" />
+        <label for="FullName" class="fw-bold">Họ và tên</label>
+        <input type="text" asp-for="FullName" class="form-control w-25"/>
+        <span asp-validation-for="FullName" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <button type="submit" class="btn btn-primary mt-2">Gửi</button>
 </form>

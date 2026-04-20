@@ -8,7 +8,6 @@ namespace FirstWebMVC.Models.Person
     {
         [Key]
         public string PersonID{get; set;}
-        [Required]
         public string FullName{get; set;}
         public string Address{get; set;}
     }

@@ -1,14 +1,13 @@
 @model IEnumerable<FirstWebMVC.Models.Student.Student>
-<h2>Danh sach Sinh vien</h2>
-<table class="table table-bordered">
+<h2>Danh sách sinh viên</h2>
+<table class="table table-bordered table-hover">
     <tr>
-        <th>Ma SV</th>
-        <th>Ho Ten SV</th>
+        <th>Mã Sinh Viên</th>
+        <th>Họ tên Sinh Viên</th>
         <th>Actions</th>
     </tr>
-    
-    @foreach (var item in Model)
-    {
+
+    @foreach(var item in Model){
         <tr>
             <td>@item.StudentCode</td>
             <td>@item.FullName</td>
