@@ -6,23 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FirstWebMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class TaoBangBanDau : Migration
+    public partial class InitDonHang : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.AddColumn<string>(
-                name: "FacultyId",
-                table: "Students",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "");
+            migrationBuilder.CreateTable(
+                name: "Employee",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Age = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employee", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Faculties",
@@ -37,18 +38,47 @@ namespace FirstWebMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Families",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    Age = table.Column<int>(type: "INTEGER", nullable: false),
+                    Role = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Families", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "KhachHangs",
                 columns: table => new
                 {
                     KhachHangId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TenKhachHang = table.Column<string>(type: "TEXT", nullable: false),
-                    DienThoai = table.Column<string>(type: "TEXT", nullable: false),
-                    DiaChi = table.Column<string>(type: "TEXT", nullable: false)
+                    TenKhachHang = table.Column<string>(type: "TEXT", nullable: true),
+                    DienThoai = table.Column<string>(type: "TEXT", nullable: true),
+                    DiaChi = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_KhachHangs", x => x.KhachHangId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Persons",
+                columns: table => new
+                {
+                    PersonID = table.Column<string>(type: "TEXT", nullable: false),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Persons", x => x.PersonID);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,12 +87,31 @@ namespace FirstWebMVC.Migrations
                 {
                     SanPhamId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TenSanPham = table.Column<string>(type: "TEXT", nullable: false),
+                    TenSanPham = table.Column<string>(type: "TEXT", nullable: true),
                     Gia = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SanPhams", x => x.SanPhamId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    StudentCode = table.Column<string>(type: "TEXT", nullable: false),
+                    FullName = table.Column<string>(type: "TEXT", nullable: false),
+                    FacultyId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.StudentCode);
+                    table.ForeignKey(
+                        name: "FK_Students_Faculties_FacultyId",
+                        column: x => x.FacultyId,
+                        principalTable: "Faculties",
+                        principalColumn: "FacultyId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,11 +163,6 @@ namespace FirstWebMVC.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_FacultyId",
-                table: "Students",
-                column: "FacultyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ChiTietDonHangs_DonHangId",
                 table: "ChiTietDonHangs",
                 column: "DonHangId");
@@ -133,27 +177,29 @@ namespace FirstWebMVC.Migrations
                 table: "DonHangs",
                 column: "KhachHangId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Students_Faculties_FacultyId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_FacultyId",
                 table: "Students",
-                column: "FacultyId",
-                principalTable: "Faculties",
-                principalColumn: "FacultyId",
-                onDelete: ReferentialAction.Cascade);
+                column: "FacultyId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Students_Faculties_FacultyId",
-                table: "Students");
-
             migrationBuilder.DropTable(
                 name: "ChiTietDonHangs");
 
             migrationBuilder.DropTable(
-                name: "Faculties");
+                name: "Employee");
+
+            migrationBuilder.DropTable(
+                name: "Families");
+
+            migrationBuilder.DropTable(
+                name: "Persons");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "DonHangs");
@@ -162,53 +208,10 @@ namespace FirstWebMVC.Migrations
                 name: "SanPhams");
 
             migrationBuilder.DropTable(
+                name: "Faculties");
+
+            migrationBuilder.DropTable(
                 name: "KhachHangs");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Students_FacultyId",
-                table: "Students");
-
-            migrationBuilder.DropColumn(
-                name: "FacultyId",
-                table: "Students");
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products",
-                column: "CategoryId");
         }
     }
 }

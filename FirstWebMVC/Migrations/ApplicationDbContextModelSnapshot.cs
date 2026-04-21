@@ -70,15 +70,12 @@ namespace FirstWebMVC.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DiaChi")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DienThoai")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TenKhachHang")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("KhachHangId");
@@ -96,7 +93,6 @@ namespace FirstWebMVC.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TenSanPham")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("SanPhamId");

@@ -9,13 +9,18 @@ namespace FirstWebMVC.Models.DonHang
         [Key]
         public int KhachHangId { get; set; }
 
-        public string TenKhachHang { get; set; }
+        [Required(ErrorMessage = "Tên khách hàng không được để trống")]
+        [StringLength(100, ErrorMessage = "Tên tối đa 100 ký tự")]
+        public string? TenKhachHang { get; set; }
 
-        public string DienThoai { get; set; }
+        [Required(ErrorMessage = "Số điện thoại không được để trống")]
+        [Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
+        public string? DienThoai { get; set; }
 
-        public string DiaChi { get; set; }
+        [Required(ErrorMessage = "Địa chỉ không được để trống")]
+        [StringLength(200)]
+        public string? DiaChi { get; set; }
 
-        // 1 khách hàng có nhiều đơn hàng
-        public ICollection<DonHang> DonHangs { get; set; }
+        public ICollection<DonHang> DonHangs { get; set; } = new List<DonHang>();
     }
 }

@@ -9,20 +9,18 @@ namespace FirstWebMVC.Models.DonHang
         [Key]
         public int ChiTietDonHangId { get; set; }
 
+        [Required(ErrorMessage = "Số lượng không được để trống")]
+        [Range(1, int.MaxValue, ErrorMessage = "Số lượng phải >= 1")]
         public int SoLuong { get; set; }
 
+        [Required(ErrorMessage = "Đơn giá không được để trống")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Đơn giá phải > 0")]
         public decimal DonGia { get; set; }
 
-        // FK Đơn hàng
         public int DonHangId { get; set; }
+        public DonHang? DonHang { get; set; }
 
-        [ForeignKey("DonHangId")]
-        public DonHang DonHang { get; set; }
-
-        // FK Sản phẩm
         public int SanPhamId { get; set; }
-
-        [ForeignKey("SanPhamId")]
-        public SanPham SanPham { get; set; }
+        public SanPham? SanPham { get; set; }
     }
 }

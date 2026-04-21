@@ -7,18 +7,17 @@ namespace FirstWebMVC.Models.DonHang
 {
     public class DonHang
     {
-        [Key]
+      [Key]
         public int DonHangId { get; set; }
 
-        public DateTime NgayDat { get; set; }
+        [Required(ErrorMessage = "Ngày đặt không được để trống")]
+        public DateTime NgayDat { get; set; } = DateTime.Now;
 
-        // Khóa ngoại
+        [Required(ErrorMessage = "Phải chọn khách hàng")]
         public int KhachHangId { get; set; }
 
-        [ForeignKey("KhachHangId")]
-        public KhachHang KhachHang { get; set; }
+        public KhachHang? KhachHang { get; set; }
 
-        // 1 đơn hàng có nhiều chi tiết
-        public ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; }
+        public ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
     }
 }   

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstWebMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260414102615_TaoBangBanDau")]
-    partial class TaoBangBanDau
+    [Migration("20260421085445_InitDonHang")]
+    partial class InitDonHang
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,15 +73,12 @@ namespace FirstWebMVC.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("DiaChi")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DienThoai")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TenKhachHang")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("KhachHangId");
@@ -99,7 +96,6 @@ namespace FirstWebMVC.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TenSanPham")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("SanPhamId");

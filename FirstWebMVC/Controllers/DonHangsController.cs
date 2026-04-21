@@ -5,55 +5,64 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using FirstWebMVC.Data;
 using FirstWebMVC.Models.DonHang;
 
 namespace FirstWebMVC.Controllers
 {
-    public class DonHangController : Controller
+    public class DonHangsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DonHangController(AppDbContext context)
+        public DonHangsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: DonHang
+        // GET: DonHangs
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.DonHang.Include(d => d.KhachHang);
-            return View(await appDbContext.ToListAsync());
+            var applicationDbContext = _context.DonHangs
+                .Include(d => d.KhachHang)
+                .OrderByDescending(d => d.NgayDat);
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: DonHang/Details/5
+        // 🔥 THÊM MỚI: Xem đơn theo khách hàng
+        public async Task<IActionResult> DonHangsByKhach(int id)
+        {
+            var donHangs = await _context.DonHangs
+                .Include(d => d.KhachHang)
+                .Where(d => d.KhachHangId == id)
+                .OrderByDescending(d => d.NgayDat)
+                .ToListAsync();
+
+            return View(donHangs);
+        }
+
+        // GET: DonHangs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var donHang = await _context.DonHang
+            var donHang = await _context.DonHangs
                 .Include(d => d.KhachHang)
                 .FirstOrDefaultAsync(m => m.DonHangId == id);
-            if (donHang == null)
-            {
-                return NotFound();
-            }
+
+            if (donHang == null) return NotFound();
 
             return View(donHang);
         }
 
-        // GET: DonHang/Create
+        // GET: DonHangs/Create
         public IActionResult Create()
         {
-            ViewData["KhachHangId"] = new SelectList(_context.Set<KhachHang>(), "KhachHangId", "KhachHangId");
+            ViewData["KhachHangId"] = new SelectList(_context.KhachHangs, "KhachHangId", "TenKhachHang");
             return View();
         }
 
-        // POST: DonHang/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: DonHangs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DonHangId,NgayDat,KhachHangId")] DonHang donHang)
@@ -64,38 +73,29 @@ namespace FirstWebMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KhachHangId"] = new SelectList(_context.Set<KhachHang>(), "KhachHangId", "KhachHangId", donHang.KhachHangId);
+
+            ViewData["KhachHangId"] = new SelectList(_context.KhachHangs, "KhachHangId", "TenKhachHang", donHang.KhachHangId);
             return View(donHang);
         }
 
-        // GET: DonHang/Edit/5
+        // GET: DonHangs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var donHang = await _context.DonHang.FindAsync(id);
-            if (donHang == null)
-            {
-                return NotFound();
-            }
-            ViewData["KhachHangId"] = new SelectList(_context.Set<KhachHang>(), "KhachHangId", "KhachHangId", donHang.KhachHangId);
+            var donHang = await _context.DonHangs.FindAsync(id);
+            if (donHang == null) return NotFound();
+
+            ViewData["KhachHangId"] = new SelectList(_context.KhachHangs, "KhachHangId", "TenKhachHang", donHang.KhachHangId);
             return View(donHang);
         }
 
-        // POST: DonHang/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: DonHangs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DonHangId,NgayDat,KhachHangId")] DonHang donHang)
         {
-            if (id != donHang.DonHangId)
-            {
-                return NotFound();
-            }
+            if (id != donHang.DonHangId) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -107,48 +107,44 @@ namespace FirstWebMVC.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!DonHangExists(donHang.DonHangId))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KhachHangId"] = new SelectList(_context.Set<KhachHang>(), "KhachHangId", "KhachHangId", donHang.KhachHangId);
+
+            ViewData["KhachHangId"] = new SelectList(_context.KhachHangs, "KhachHangId", "TenKhachHang", donHang.KhachHangId);
             return View(donHang);
         }
 
-        // GET: DonHang/Delete/5
+        // GET: DonHangs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var donHang = await _context.DonHang
+            var donHang = await _context.DonHangs
                 .Include(d => d.KhachHang)
                 .FirstOrDefaultAsync(m => m.DonHangId == id);
-            if (donHang == null)
-            {
-                return NotFound();
-            }
+
+            if (donHang == null) return NotFound();
 
             return View(donHang);
         }
 
-        // POST: DonHang/Delete/5
+        // POST: DonHangs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var donHang = await _context.DonHang.FindAsync(id);
+            var donHang = await _context.DonHangs
+                .Include(d => d.ChiTietDonHangs)
+                .FirstOrDefaultAsync(d => d.DonHangId == id);
+
             if (donHang != null)
             {
-                _context.DonHang.Remove(donHang);
+                _context.ChiTietDonHangs.RemoveRange(donHang.ChiTietDonHangs);
+                _context.DonHangs.Remove(donHang);
             }
 
             await _context.SaveChangesAsync();
@@ -157,7 +153,7 @@ namespace FirstWebMVC.Controllers
 
         private bool DonHangExists(int id)
         {
-            return _context.DonHang.Any(e => e.DonHangId == id);
+            return _context.DonHangs.Any(e => e.DonHangId == id);
         }
     }
 }
