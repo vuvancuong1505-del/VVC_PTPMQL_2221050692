@@ -43,13 +43,13 @@ namespace FirstWebMVC.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var student = await _context.Students.FindAsync(id);
             if (student == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(student);
@@ -61,7 +61,7 @@ namespace FirstWebMVC.Controllers
         {
             if (id != student.StudentCode)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (!ModelState.IsValid)
@@ -78,7 +78,7 @@ namespace FirstWebMVC.Controllers
             {
                 if (!StudentExists(student.StudentCode))
                 {
-                    return NotFound();
+                    return View("NotFound");
                 }
                 throw;
             }
@@ -90,13 +90,13 @@ namespace FirstWebMVC.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var student = await _context.Students.FirstOrDefaultAsync(s => s.StudentCode == id);
             if (student == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return View(student);
@@ -107,12 +107,13 @@ namespace FirstWebMVC.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var student = await _context.Students.FindAsync(id);
-            if (student != null)
+            if (student == null)
             {
-                _context.Students.Remove(student);
-                await _context.SaveChangesAsync();
+                return View("NotFound");
             }
 
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
