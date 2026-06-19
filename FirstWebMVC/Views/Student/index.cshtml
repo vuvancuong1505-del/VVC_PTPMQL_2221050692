@@ -1,36 +1,33 @@
-@model FirstWebMVC.Models.Student
+@model IEnumerable<FirstWebMVC.Models.Student>
 
 @{
-    ViewData["Title"] = "Student";
+    ViewData["Title"] = "Students";
 }
 
-<h2>Student Form</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Danh sách sinh viên</h2>
+    <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
+</div>
 
-<form asp-action="Index" method="post">
-    <div class="mb-3">
-        <label asp-for="FullName" class="form-label">Họ tên</label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="StudentCode" class="form-label">Mã sinh viên</label>
-        <input asp-for="StudentCode" class="form-control" />
-        <span asp-validation-for="StudentCode" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Gửi</button>
-</form>
-
-@if (ViewBag.Message != null)
-{
-    <div class="alert alert-success mt-3">
-        @ViewBag.Message
-    </div>
-}
-
-@if (Model != null && !string.IsNullOrEmpty(Model.StudentCode))
-{
-    <div class="mt-3">
-        <p><strong>Mã sinh viên:</strong> @Model.StudentCode</p>
-        <p><strong>Họ tên:</strong> @Model.FullName</p>
-    </div>
-}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã sinh viên</th>
+            <th>Họ và tên</th>
+            <th style="width:180px">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.StudentCode</td>
+            <td>@student.FullName</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@student.StudentCode">Sửa</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@student.StudentCode">Xóa</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
