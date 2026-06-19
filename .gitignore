@@ -1,0 +1,21 @@
+# Visual Studio / .NET
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+**/bin/
+**/obj/
+
+# EF Core Local DB
+**/ApplicationDb.db
+*.db
+
+# Rider
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
