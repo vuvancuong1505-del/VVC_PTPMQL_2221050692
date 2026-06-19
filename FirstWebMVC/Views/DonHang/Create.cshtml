@@ -23,11 +23,11 @@
         <span asp-validation-for="TongTien" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="StudentCode" class="form-label"></label>
-        <select asp-for="StudentCode" asp-items="ViewBag.Students" class="form-select">
-            <option value="">-- Chọn sinh viên --</option>
+        <label asp-for="KhachHangId" class="form-label"></label>
+        <select asp-for="KhachHangId" asp-items="ViewBag.KhachHangs" class="form-select">
+            <option value="">-- Chọn khách hàng --</option>
         </select>
-        <span asp-validation-for="StudentCode" class="text-danger"></span>
+        <span asp-validation-for="KhachHangId" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a asp-action="Index" class="btn btn-secondary">Hủy</a>

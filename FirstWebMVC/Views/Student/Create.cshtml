@@ -30,11 +30,11 @@
         <span asp-validation-for="Age" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="DepartmentId" class="form-label"></label>
-        <select asp-for="DepartmentId" asp-items="ViewBag.Departments" class="form-select">
+        <label asp-for="FacultyId" class="form-label"></label>
+        <select asp-for="FacultyId" asp-items="ViewBag.Faculties" class="form-select">
             <option value="">-- Chọn khoa --</option>
         </select>
-        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        <span asp-validation-for="FacultyId" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Lưu</button>
     <a asp-action="Index" class="btn btn-secondary">Hủy</a>

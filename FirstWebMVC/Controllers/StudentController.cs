@@ -19,15 +19,15 @@ namespace FirstWebMVC.Controllers
         public async Task<IActionResult> Index()
         {
             var students = await _context.Students
-                .Include(s => s.Department)
+                .Include(s => s.Faculty)
                 .OrderBy(s => s.StudentCode)
-                .Select(s => new StudentDepartmentViewModel
+                .Select(s => new StudentFacultyViewModel
                 {
                     StudentCode = s.StudentCode,
                     FullName = s.FullName,
                     Email = s.Email,
                     Age = s.Age,
-                    DepartmentName = s.Department != null ? s.Department.Name : string.Empty
+                    FacultyName = s.Faculty != null ? s.Faculty.Name : string.Empty
                 })
                 .ToListAsync();
 
@@ -36,7 +36,7 @@ namespace FirstWebMVC.Controllers
 
         public async Task<IActionResult> Create()
         {
-            await PopulateDepartmentsAsync();
+            await PopulateFacultiesAsync();
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace FirstWebMVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            await PopulateDepartmentsAsync();
+            await PopulateFacultiesAsync();
             return View(student);
         }
 
@@ -68,7 +68,7 @@ namespace FirstWebMVC.Controllers
                 return NotFound();
             }
 
-            await PopulateDepartmentsAsync(student.DepartmentId);
+            await PopulateFacultiesAsync(student.FacultyId);
             return View(student);
         }
 
@@ -83,7 +83,7 @@ namespace FirstWebMVC.Controllers
 
             if (!ModelState.IsValid)
             {
-                await PopulateDepartmentsAsync(student.DepartmentId);
+                await PopulateFacultiesAsync(student.FacultyId);
                 return View(student);
             }
 
@@ -112,7 +112,7 @@ namespace FirstWebMVC.Controllers
             }
 
             var student = await _context.Students
-                .Include(s => s.Department)
+                .Include(s => s.Faculty)
                 .FirstOrDefaultAsync(s => s.StudentCode == id);
             if (student == null)
             {
@@ -141,10 +141,10 @@ namespace FirstWebMVC.Controllers
             return _context.Students.Any(e => e.StudentCode == id);
         }
 
-        private async Task PopulateDepartmentsAsync(int? selectedDepartmentId = null)
+        private async Task PopulateFacultiesAsync(int? selectedFacultyId = null)
         {
-            var departments = await _context.Departments.OrderBy(d => d.Name).ToListAsync();
-            ViewBag.Departments = new SelectList(departments, "DepartmentId", "Name", selectedDepartmentId);
+            var faculties = await _context.Faculties.OrderBy(d => d.Name).ToListAsync();
+            ViewBag.Faculties = new SelectList(faculties, "FacultyId", "Name", selectedFacultyId);
         }
     }
 }

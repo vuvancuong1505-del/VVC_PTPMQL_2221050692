@@ -1,4 +1,4 @@
-@model IEnumerable<FirstWebMVC.ViewModels.StudentDepartmentViewModel>
+@model IEnumerable<FirstWebMVC.ViewModels.StudentFacultyViewModel>
 
 @{
     ViewData["Title"] = "Danh sách sinh viên";
@@ -28,7 +28,7 @@
             <td>@student.FullName</td>
             <td>@student.Email</td>
             <td>@student.Age</td>
-            <td>@student.DepartmentName</td>
+            <td>@student.FacultyName</td>
             <td>
                 <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@student.StudentCode">Sửa</a>
                 <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@student.StudentCode">Xóa</a>

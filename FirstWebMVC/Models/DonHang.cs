@@ -17,15 +17,17 @@ namespace FirstWebMVC.Models
         [Display(Name = "Ngày đặt")]
         public DateTime NgayDat { get; set; }
 
-        [Range(0.01, 10000000, ErrorMessage = "Tổng tiền phải lớn hơn {1}")]
+        [Range(0.00, 100000000, ErrorMessage = "Tổng tiền phải lớn hơn hoặc bằng {1}")]
         [Display(Name = "Tổng tiền")]
         public decimal TongTien { get; set; }
 
-        [Required(ErrorMessage = "Sinh viên không được để trống")]
-        [Display(Name = "Sinh viên")]
-        public string StudentCode { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Khách hàng không được để trống")]
+        [Display(Name = "Khách hàng")]
+        public int KhachHangId { get; set; }
 
-        [ForeignKey(nameof(StudentCode))]
-        public Student? Student { get; set; }
+        [ForeignKey(nameof(KhachHangId))]
+        public KhachHang? KhachHang { get; set; }
+
+        public ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
     }
 }

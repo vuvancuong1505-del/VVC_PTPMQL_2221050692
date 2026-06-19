@@ -28,11 +28,10 @@ namespace FirstWebMVC.Models
 
         [Required(ErrorMessage = "Khoa không được để trống")]
         [Display(Name = "Khoa")]
-        public int DepartmentId { get; set; }
+        [Column("DepartmentId")]
+        public int FacultyId { get; set; }
 
-        [ForeignKey(nameof(DepartmentId))]
-        public Department? Department { get; set; }
-
-        public ICollection<DonHang> DonHangs { get; set; } = new List<DonHang>();
+        [ForeignKey(nameof(FacultyId))]
+        public Faculty? Faculty { get; set; }
     }
 }

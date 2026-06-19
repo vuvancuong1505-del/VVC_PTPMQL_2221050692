@@ -1,11 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FirstWebMVC.Models
 {
-    public class Department
+    [Table("Departments")]
+    public class Faculty
     {
         [Key]
-        public int DepartmentId { get; set; }
+        [Column("DepartmentId")]
+        public int FacultyId { get; set; }
 
         [Required(ErrorMessage = "Tên khoa không được để trống")]
         [StringLength(100, ErrorMessage = "Tên khoa chỉ được tối đa {1} ký tự")]

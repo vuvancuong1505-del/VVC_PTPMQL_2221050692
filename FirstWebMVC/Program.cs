@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Data;
+using FirstWebMVC.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,12 +18,12 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
 
-    if (!db.Departments.Any())
+    if (!db.Faculties.Any())
     {
-        db.Departments.AddRange(
-            new FirstWebMVC.Models.Department { Name = "Công nghệ thông tin" },
-            new FirstWebMVC.Models.Department { Name = "Quản trị kinh doanh" },
-            new FirstWebMVC.Models.Department { Name = "Kinh tế" }
+        db.Faculties.AddRange(
+            new FirstWebMVC.Models.Faculty { Name = "Công nghệ thông tin" },
+            new FirstWebMVC.Models.Faculty { Name = "Quản trị kinh doanh" },
+            new FirstWebMVC.Models.Faculty { Name = "Kinh tế" }
         );
         db.SaveChanges();
     }
