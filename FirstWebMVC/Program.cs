@@ -12,6 +12,22 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+
+    if (!db.Departments.Any())
+    {
+        db.Departments.AddRange(
+            new FirstWebMVC.Models.Department { Name = "Công nghệ thông tin" },
+            new FirstWebMVC.Models.Department { Name = "Quản trị kinh doanh" },
+            new FirstWebMVC.Models.Department { Name = "Kinh tế" }
+        );
+        db.SaveChanges();
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
