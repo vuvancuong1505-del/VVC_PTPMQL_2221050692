@@ -1,0 +1,33 @@
+@model IEnumerable<FirstWebMVC.Models.Student>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Danh sách sinh viên</h2>
+    <a class="btn btn-primary" asp-action="Create">Thêm mới</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã sinh viên</th>
+            <th>Họ và tên</th>
+            <th style="width:180px">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.StudentCode</td>
+            <td>@student.FullName</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@student.StudentCode">Sửa</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@student.StudentCode">Xóa</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
