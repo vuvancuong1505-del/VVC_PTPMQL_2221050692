@@ -119,4 +119,103 @@ Trong dự án này, `namespace FirstWebMVC.Controllers` cho biết controller n
 - View: `FirstWebMVC/Views/Demo/Index.cshtml`
 - URL truy cập: `/Demo/Index`
 
-Nội dung trả về: `Hello Nguyễn Văn A - 2221050692`.
+Nội dung trả về: `Hello Vũ Văn Cường - 2221050692`.
+
+## 6. ViewBag trong MVC
+
+- `ViewBag` là một đối tượng động dùng để truyền dữ liệu từ controller sang view.
+- Dữ liệu được lưu trữ dưới dạng thuộc tính động, ví dụ `ViewBag.Message = "Hello"`.
+- View có thể truy cập được bằng `@ViewBag.Message`.
+
+### Ví dụ sử dụng ViewBag
+
+Controller:
+
+```csharp
+public IActionResult Index()
+{
+    ViewBag.Message = "Xin chào từ ViewBag";
+    return View();
+}
+```
+
+View (`Index.cshtml`):
+
+```html
+<h2>@ViewBag.Message</h2>
+```
+
+## 7. Gửi nhận dữ liệu giữa View và Controller qua form
+
+- View tạo form HTML với `method="post"`.
+- Controller nhận dữ liệu bằng action có attribute `[HttpPost]`.
+- Dữ liệu gửi đến controller có thể được nhận bằng tham số primitive hoặc model.
+- Sau khi xử lý, controller có thể trả về view cùng dữ liệu mới.
+
+### Ví dụ nhập họ tên và gửi dữ liệu
+
+Controller:
+
+```csharp
+[HttpGet]
+public IActionResult Index()
+{
+    return View();
+}
+
+[HttpPost]
+public IActionResult Index(string fullName)
+{
+    ViewBag.Message = $"Xin chào {fullName}";
+    return View();
+}
+```
+
+View:
+
+```html
+<form asp-action="Index" method="post">
+    <input type="text" name="fullName" />
+    <button type="submit">Gửi</button>
+</form>
+
+<div>@ViewBag.Message</div>
+```
+
+## 8. Model Student và gửi nhận dữ liệu kiểu Student
+
+- Model là lớp dữ liệu dùng để truyền thông tin giữa view và controller.
+- Tạo model `Student` với hai thuộc tính `StudentCode` và `FullName`.
+
+### Model `Student`
+
+```csharp
+namespace FirstWebMVC.Models
+{
+    public class Student
+    {
+        public string StudentCode { get; set; }
+        public string FullName { get; set; }
+    }
+}
+```
+
+### Controller `StudentController`
+
+- `GET Index` trả về form.
+- `POST Index(Student student)` nhận dữ liệu từ form.
+- Sử dụng `ViewBag.Message` để gửi thông báo hiển thị lên view.
+
+### View `Student/Index.cshtml`
+
+- Dùng model `FirstWebMVC.Models.Student`.
+- Form gồm ô nhập `FullName` và `StudentCode`.
+- Hiển thị thông báo `Xin chào {FullName}` khi submit.
+
+## 9. Layout và điều hướng
+
+- `Views/Shared/_Layout.cshtml` là layout chung cho toàn bộ view.
+- Layout chứa menu điều hướng đến `StudentController` bằng link:
+  - `asp-controller="Student" asp-action="Index"`
+
+> Kết quả: người dùng có thể vào `/Student/Index`, nhập họ tên và mã sinh viên, submit form, và nhận thông báo chào mừng cùng dữ liệu đã nhập.
