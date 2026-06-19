@@ -1,0 +1,38 @@
+@model FirstWebMVC.Models.DonHang
+
+@{
+    ViewData["Title"] = "Thêm đơn hàng";
+}
+
+<h2>Thêm đơn hàng</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="MaDonHang" class="form-label"></label>
+        <input asp-for="MaDonHang" class="form-control" />
+        <span asp-validation-for="MaDonHang" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NgayDat" class="form-label"></label>
+        <input asp-for="NgayDat" type="date" class="form-control" />
+        <span asp-validation-for="NgayDat" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="TongTien" class="form-label"></label>
+        <input asp-for="TongTien" class="form-control" />
+        <span asp-validation-for="TongTien" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="StudentCode" class="form-label"></label>
+        <select asp-for="StudentCode" asp-items="ViewBag.Students" class="form-select">
+            <option value="">-- Chọn sinh viên --</option>
+        </select>
+        <span asp-validation-for="StudentCode" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -12,5 +12,6 @@ namespace FirstWebMVC.Data
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<DonHang> DonHangs { get; set; }
     }
 }

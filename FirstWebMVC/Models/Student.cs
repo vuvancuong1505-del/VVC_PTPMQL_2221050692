@@ -32,5 +32,7 @@ namespace FirstWebMVC.Models
 
         [ForeignKey(nameof(DepartmentId))]
         public Department? Department { get; set; }
+
+        public ICollection<DonHang> DonHangs { get; set; } = new List<DonHang>();
     }
 }
