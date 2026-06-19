@@ -6,7 +6,7 @@ namespace FirstWebMVC.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Message"] = "Hello Nguyễn Văn A - 2221050692";
+            ViewData["Message"] = "Hello Vũ Văn Cường - 2221050692";
             return View();
         }
     }
