@@ -2,8 +2,19 @@ using Microsoft.EntityFrameworkCore;
 using FirstWebMVC.Data;
 using FirstWebMVC.Models;
 using Microsoft.Extensions.DependencyInjection;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Set EPPlus License for non-commercial use
+try
+{
+    ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+}
+catch
+{
+    // License context may already be set or not supported in this version
+}
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlite(builder.Configuration.GetConnectionString("ApplicationDbContext") ?? throw new 
     InvalidOperationException("Connection string 'ApplicationDbContext' not found.")));

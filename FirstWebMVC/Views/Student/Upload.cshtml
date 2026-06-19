@@ -1,0 +1,39 @@
+@model FirstWebMVC.ViewModels.StudentImportResultViewModel
+
+@{
+    ViewData["Title"] = "Import sinh viên từ Excel";
+}
+
+<h2>Import sinh viên từ Excel</h2>
+
+<form asp-action="Upload" asp-controller="Student" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label class="form-label">Chọn file Excel (.xlsx)</label>
+        <input type="file" name="file" class="form-control" accept=".xlsx" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@if (Model != null)
+{
+    <div class="mt-4">
+        <h4>Kết quả</h4>
+        <p>Tổng số dòng: @Model.TotalRows</p>
+        <p>Đã tạo: @Model.CreatedCount</p>
+        <p>Đã bỏ qua: @Model.SkippedCount</p>
+
+        @if (Model.Errors.Any())
+        {
+            <div class="alert alert-warning">
+                <h5>Lỗi</h5>
+                <ul>
+                    @foreach (var error in Model.Errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+}
